@@ -109,7 +109,7 @@ public class CourseServiceImpl implements ICourseService {
             Enrollment enrollment = new Enrollment();
             enrollment.setEmp_id(enrollRequestDto.getEmp_id());
             enrollment.setCourse_id(enrollRequestDto.getCourse_id());
-            enrollment.setStatus(Boolean.TRUE);
+            enrollment.setStatus(Boolean.FALSE);
             enrollmentRepository.save(enrollment);
         } catch (Exception e) {
             if (e.getMessage().contains("Course does not exists for id")) {
@@ -118,10 +118,24 @@ public class CourseServiceImpl implements ICourseService {
             throw new RuntimeException("Employee doesn't exist", e);
         }
     }
+    @Override
+    public boolean updateEnroll(Integer enrollmentId) {
+        boolean isUpdated = false;
+        if(enrollmentId == null) return isUpdated;
+//        Enrollment enrollment = enrollmentRepository.findByEmpIdAndCourseId(enrollRequestDto.getEmp_id(), enrollRequestDto.getCourse_id();
+        Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElseThrow(
+                ()-> new CourseNotFoundException("Enrollment does not exists for id - " + enrollmentId )
+        );
+        enrollment.setStatus(Boolean.TRUE);
+        enrollmentRepository.save(enrollment);
+        isUpdated = true;
+        return isUpdated;
+    }
+
 
 //    @Override
 //    public List<EmployeeDto> getEmployeesByCourseId(Integer course_id) {
-//        List<Enrollment> enrollments = enrollmentRepository.findByCourse_id(course_id);
+//        List<Enrollment> enrollments = enrollmentRepository.findByCourseId(course_id);
 //        return enrollments.stream()
 //                .map(enrollment -> webClient.get()
 //                        .uri("http://localhost:8090/api/fetchbyid?id=" + enrollment.getEmp_id())

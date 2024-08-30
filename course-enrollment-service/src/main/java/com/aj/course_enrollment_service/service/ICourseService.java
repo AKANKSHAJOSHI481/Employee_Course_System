@@ -17,5 +17,12 @@ public interface ICourseService {
 
     void enrollCourse(EnrollRequestDto enrollRequestDto);
 
+    boolean updateEnroll(Integer enrollmentId);
+
+//    boolean deleteEnroll(EnrollRequestDto enrollRequestDto);
+
+//    boolean deleteEnroll(Integer empId, Integer courseId);
+
 //    List<EmployeeDto> getEmployeesByCourseId(Integer courseId);
+//    List<EmployeeDto> getEmployeesByCourseId(Integer course_id);
 }

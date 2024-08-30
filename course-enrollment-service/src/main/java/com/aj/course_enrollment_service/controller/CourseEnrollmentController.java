@@ -119,6 +119,23 @@ public class CourseEnrollmentController {
         }
     }
 
+    @PutMapping("/update-enroll")
+    public ResponseEntity<ResponseDto> updateEnroll(@RequestParam Integer enrollmentId){
+        boolean isUpdated = iCourseService.updateEnroll(enrollmentId);
+        if(isUpdated){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseDto("Updated Successfully", "203")
+            );
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ResponseDto("Not Updated", "501")
+            );
+        }
+    }
+
+
+
 //    @GetMapping("/fetch-enroll")
 //@GetMapping("/employees-by-course")
 //public ResponseEntity<List<EmployeeDto>> getEmployeesByCourseId(@RequestParam Integer course_id) {

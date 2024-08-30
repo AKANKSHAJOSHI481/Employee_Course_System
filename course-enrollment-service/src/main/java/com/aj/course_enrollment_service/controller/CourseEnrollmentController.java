@@ -7,6 +7,7 @@ import com.aj.course_enrollment_service.dto.ResponseDto;
 import com.aj.course_enrollment_service.service.ICourseService;
 import org.hibernate.annotations.processing.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class CourseEnrollmentController {
+    @Value("${build.version}")
+    private String buildVersion;
+
     @GetMapping("/hello")
     public String sayHello(){
         return "Hello World!";
@@ -134,7 +138,10 @@ public class CourseEnrollmentController {
         }
     }
 
-
+    @GetMapping("/build-info")
+    public String buildInfo(){
+        return "Build Version: " + buildVersion;
+    }
 
 //    @GetMapping("/fetch-enroll")
 //@GetMapping("/employees-by-course")
